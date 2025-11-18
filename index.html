@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Maktabian Chronicles — A Family Saga of Transformation and Survival</title>
+    <meta name="description" content="475 years. Three empires. Four religions. Three cities. One family that refused to disappear.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --saffron: #D4A574;
+            --crimson: #8B2635;
+            --parchment: #F5F1E8;
+            --charcoal: #2B2622;
+            --ink: #1a1614;
+            --fade: rgba(212, 165, 116, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--parchment);
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Textile pattern background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    var(--fade) 2px,
+                    var(--fade) 4px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    var(--fade) 2px,
+                    var(--fade) 4px
+                );
+            background-size: 40px 40px;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 0;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out 0.3s forwards;
+        }
+
+        .ornament {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--saffron), transparent);
+            margin: 0 auto 3rem;
+            opacity: 0;
+            animation: slideDown 0.8s ease-out 0.8s forwards;
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 300;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .subtitle {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-weight: 400;
+            color: var(--crimson);
+            font-style: italic;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 1.2s forwards;
+        }
+
+        .attribution {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--charcoal);
+            opacity: 0.7;
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 1.5s forwards;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 2s forwards;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scroll-text {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--crimson);
+            font-weight: 400;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--saffron), transparent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: var(--crimson);
+            animation: scrollDrop 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollDrop {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+        }
+
+        /* Story Section */
+        .story {
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .story.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-intro {
+            font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: var(--ink);
+        }
+
+        .story-details {
+            display: grid;
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+
+        .detail-item {
+            border-left: 2px solid var(--saffron);
+            padding-left: 1.5rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .detail-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .detail-item:nth-child(2) { transition-delay: 0.15s; }
+        .detail-item:nth-child(3) { transition-delay: 0.3s; }
+        .detail-item:nth-child(4) { transition-delay: 0.45s; }
+
+        .detail-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--crimson);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .detail-content {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.25rem;
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0 8rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .cta-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-intro {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(1.3rem, 3vw, 1.75rem);
+            margin-bottom: 3rem;
+            color: var(--ink);
+            font-weight: 300;
+        }
+
+        .author-note {
+            max-width: 650px;
+            margin: 0 auto 4rem;
+            padding: 2rem 2.5rem;
+            border-left: 3px solid var(--saffron);
+            background: rgba(212, 165, 116, 0.08);
+            text-align: left;
+        }
+
+        .author-note-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--crimson);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .author-quote {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--charcoal);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .author-attribution {
+            font-size: 0.95rem;
+            color: var(--ink);
+            font-style: normal;
+        }
+
+        .author-attribution a {
+            color: var(--crimson);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .author-attribution a:hover {
+            border-bottom-color: var(--crimson);
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            background: var(--ink);
+            color: var(--parchment);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: 2px solid var(--ink);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--crimson);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .download-btn:hover {
+            color: var(--parchment);
+            border-color: var(--crimson);
+        }
+
+        .download-btn:hover::before {
+            left: 0;
+        }
+
+        .file-info {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            opacity: 0.6;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            opacity: 0.5;
+            border-top: 1px solid rgba(43, 38, 34, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .hero {
+                min-height: 90vh;
+                padding: 3rem 0;
+            }
+
+            .story, .cta-section {
+                padding: 4rem 0;
+            }
+
+            .download-btn {
+                padding: 1.1rem 2.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="ornament"></div>
+                <h1>The Maktabian<br>Chronicles</h1>
+                <p class="subtitle">A Family Saga of Transformation and Survival</p>
+                <p class="attribution">By Sherif Maktabi & Claude</p>
+            </div>
+            <div class="scroll-indicator" id="scrollIndicator">
+                <span class="scroll-text">Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <section class="story">
+            <div class="container">
+                <p class="story-intro">
+                    From Zoroastrian fire priests in Safavid Isfahan to Muslim merchants in Ottoman Baghdad
+                    to cosmopolitan traders in French Mandate Beirut—one family survives by transforming,
+                    changing everything except their stubborn refusal to disappear.
+                </p>
+
+                <div class="story-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Span</div>
+                        <div class="detail-content">475 years across three empires</div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Journey</div>
+                        <div class="detail-content">Isfahan → Baghdad → Beirut</div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Transformations</div>
+                        <div class="detail-content">Four religions, countless identities, one family</div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Magic</div>
+                        <div class="detail-content">A prophetic carpet woven in 1488, mapping past and future</div>
+                    </div>
+                </div>
+
+                <p class="story-intro">
+                    This is a story about identity as continuity rather than consistency. About home as
+                    story rather than place. About survival as transformation rather than preservation.
+                    And about the magic that emerges when a family refuses to forget who they are, even
+                    as they become something entirely new.
+                </p>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <p class="cta-intro">Read the complete manuscript</p>
+
+                <div class="author-note">
+                    <div class="author-note-label">From the Author</div>
+                    <p class="author-quote">
+                        "This book has been written purely by AI, specifically Anthropic's Claude Code.
+                        No humans were involved beyond comandeering Claude Code to structure the process
+                        and introduce the key idea. This experiment provides insight into the creative
+                        and productive nature of wonderful tools like these."
+                    </p>
+                    <p class="author-attribution">
+                        — Sherif Maktabi, <a href="https://www.sherif.ai" target="_blank" rel="noopener noreferrer">sherif.ai</a>
+                    </p>
+                </div>
+
+                <a href="final-manuscript/THE_MAKTABIAN_CHRONICLES_FINAL.pdf" class="download-btn" download>
+                    Download PDF
+                </a>
+                <p class="file-info">Approximately 80,000 words</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Copyright © 2025 Sherif Maktabi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe story section
+        document.querySelector('.story').classList.remove('visible');
+        observer.observe(document.querySelector('.story'));
+
+        // Observe detail items
+        document.querySelectorAll('.detail-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Observe CTA section
+        document.querySelector('.cta-section').classList.remove('visible');
+        observer.observe(document.querySelector('.cta-section'));
+
+        // Scroll indicator functionality
+        const scrollIndicator = document.getElementById('scrollIndicator');
+
+        // Smooth scroll on click
+        scrollIndicator.addEventListener('click', () => {
+            document.querySelector('.story').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        // Hide scroll indicator on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                scrollIndicator.classList.add('hidden');
+            } else {
+                scrollIndicator.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

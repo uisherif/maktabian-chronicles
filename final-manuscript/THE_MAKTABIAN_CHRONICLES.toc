@@ -1,0 +1,5 @@
+\contentsline {chapter}{Author's Note}{v}{}%
+\contentsline {part}{\partnumberline {I}The Beginning}{1}{}%
+\contentsline {part}{\partnumberline {II}PART I: THE BEGINNING}{3}{}%
+\contentsline {chapter}{\chapternumberline {1}The Carpet Maker's Daughter}{4}{}%
+\contentsline {chapter}{\chapternumberline {2}The Conversion}{18}{}%

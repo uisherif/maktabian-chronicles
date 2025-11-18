@@ -1,0 +1,481 @@
+% The Maktabian Chronicles - Simplified LaTeX Structure
+% Using memoir class with only built-in packages
+
+\documentclass[12pt,letterpaper,openany]{memoir}
+
+% ============================================================
+% PACKAGES (only those included in BasicTeX)
+% ============================================================
+
+\usepackage{fontspec} % For custom fonts with XeLaTeX
+\usepackage{microtype} % Improves typography
+\usepackage{graphicx} % For images if needed
+\usepackage{xcolor} % For color definitions
+
+% ============================================================
+% PAGE LAYOUT & MARGINS
+% ============================================================
+
+% Stock and page size for 6x9 inch book (standard trade paperback)
+\setstocksize{9in}{6in}
+\settrimmedsize{\stockheight}{\stockwidth}{*}
+\settrims{0pt}{0pt}
+
+% Margins (generous for a literary novel)
+\setlrmarginsandblock{0.75in}{0.75in}{*}
+\setulmarginsandblock{0.9in}{0.75in}{*} % Increased top margin for headers
+\setheadfoot{2\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{2\onelineskip}{*}
+\checkandfixthelayout
+
+% ============================================================
+% TYPOGRAPHY
+% ============================================================
+
+% Fonts - using elegant serif for a literary work
+\setmainfont{Palatino} % Classic, readable serif font
+% Alternatives if Palatino unavailable:
+% \setmainfont{Georgia}
+% \setmainfont{Times New Roman}
+% \setmainfont{Baskerville}
+
+% Line spacing (standard for novels)
+\setSingleSpace{1.1}
+\SingleSpacing
+
+% Paragraph formatting
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\sloppypar % Prevents overfull hboxes
+
+% Widow and orphan control
+\clubpenalty=10000
+\widowpenalty=10000
+\raggedbottom
+
+% ============================================================
+% CHAPTER STYLING
+% ============================================================
+
+% Custom chapter style inspired by Middle Eastern aesthetics
+\makechapterstyle{maktabian}{%
+  \setlength{\beforechapskip}{3\baselineskip}
+  \setlength{\afterchapskip}{2\baselineskip}
+  \renewcommand*{\chapnamefont}{\normalfont\small\scshape\centering}
+  \renewcommand*{\chapnumfont}{\normalfont\LARGE\centering}
+  \renewcommand*{\chaptitlefont}{\normalfont\Large\itshape\centering}
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapternamenum}{}
+  \renewcommand*{\printchapternum}{%
+    \chapnumfont \thechapter
+  }
+  \renewcommand*{\afterchapternum}{%
+    \par\nobreak\vskip 0.5\baselineskip
+    \hrule height 0.4pt
+    \par\nobreak\vskip 0.5\baselineskip
+  }
+  \renewcommand*{\printchaptertitle}[1]{%
+    \chaptitlefont ##1
+    \par\nobreak\vskip 0.5\baselineskip
+    {\centering * * *\par} % Simple asterisk ornament
+  }
+}
+
+\chapterstyle{maktabian}
+
+% ============================================================
+% PAGE STYLES (Headers & Footers)
+% ============================================================
+
+\makepagestyle{maktabian}
+
+% Headers
+\makeevenhead{maktabian}{\small\thepage}{}{\small\itshape\leftmark}
+\makeoddhead{maktabian}{\small\itshape The Maktabian Chronicles}{}{\small\thepage}
+
+% No headers on chapter opening pages
+\aliaspagestyle{chapter}{empty}
+
+\pagestyle{maktabian}
+
+% ============================================================
+% SCENE BREAKS
+% ============================================================
+
+% Custom scene break with centered ornament
+\newcommand{\scenebreak}{%
+  \par\vspace{\baselineskip}
+  \begin{center}
+    * * *
+  \end{center}
+  \par\vspace{\baselineskip}
+}
+
+% ============================================================
+% CUSTOM COMMANDS
+% ============================================================
+
+% Simple drop cap (first letter slightly larger)
+\newcommand{\dropcap}[1]{{\fontsize{18pt}{18pt}\selectfont #1}}
+
+% ============================================================
+% FRONT MATTER SETUP
+% ============================================================
+
+% Remove page numbers from empty pages
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside%
+    \ifodd\c@page\else
+    \hbox{}
+    \thispagestyle{empty}
+    \newpage
+    \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+% ============================================================
+% DOCUMENT BEGIN
+% ============================================================
+
+\begin{document}
+
+\frontmatter
+
+% ============================================================
+% TITLE PAGE
+% ============================================================
+
+\thispagestyle{empty}
+\begin{center}
+\vspace*{2in}
+
+{\Huge\itshape The Maktabian Chronicles}
+
+\vspace{1in}
+
+{\large A Novel}
+
+\vspace{1.5in}
+
+{\large Sherif Maktabi}
+
+\vfill
+
+{\small Isfahan • Baghdad • Beirut}
+
+\vspace{0.5in}
+
+\end{center}
+
+\cleardoublepage
+
+% ============================================================
+% COPYRIGHT PAGE
+% ============================================================
+
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{flushleft}
+\small
+
+Copyright \copyright\ 2025 by Sherif Maktabi
+
+All rights reserved.
+
+\bigskip
+
+This is a work of fiction. Names, characters, places, and incidents either are the product of the author's imagination or are used fictitiously. Any resemblance to actual persons, living or dead, events, or locales is entirely coincidental.
+
+\bigskip
+
+ISBN 978-0-000000-00-0
+
+\bigskip
+
+First Edition
+
+\end{flushleft}
+\clearpage
+
+% ============================================================
+% DEDICATION (Optional)
+% ============================================================
+
+\thispagestyle{empty}
+\vspace*{3in}
+\begin{center}
+\itshape
+For those who carry the weight of transformation\\
+and the memory of what came before
+\end{center}
+\cleardoublepage
+
+% ============================================================
+% MAIN MATTER
+% ============================================================
+
+\mainmatter
+
+% ============================================================
+% CHAPTER 1
+% ============================================================
+
+\chapter{The Carpet Maker's Daughter}
+
+\dropcap{T}he fire spoke in whispers now.
+
+Shirin fed it dried camel dung and tamarisk branches, and the flames rose half-heartedly, as if even fire had grown tired of the world. Dawn light slanted through the smoke hole in the temple dome, illuminating dust motes that danced like the souls of the dead. She watched them spiral upward and wondered if her people would vanish just as completely—particles dispersing into air, remembered by no one.
+
+Her hands moved without thinking, the way hands do when they have performed the same task for twenty years. First the dung, pressed flat and dried in the sun. Then the sacred wood, blessed with prayers her voice could barely remember. Finally, the clarified butter from the clay jar, poured in a thin stream that made the fire hiss and surge. The smell was acrid and sweet at once, familiar as her own breath.
+
+``Ahura Mazda,'' she whispered, ``keep the flame alive. Though we are few, though we are forgotten, keep the flame alive.''
+
+But Ahura Mazda, if he heard, did not answer.
+
+The fire temple stood at the edge of Isfahan, where the city gave way to desert. Once, it had commanded the road from the mountains, its dome visible for miles, covered in tiles that caught the sun and threw it back in blazing defiance. Shirin's grandfather had told stories of the glory days—pilgrims arriving in caravans from across Persia, from the highlands of Mazandaran and the coast of the Persian Gulf, bearing silver vessels and prayers written on silk. The eternal flame had burned so bright you could see its glow from the city gates, a beacon calling the faithful home.
+
+But that was before the Arabs came four centuries ago, before Islam put down roots so deep they cracked the old stones and pushed up through them like determined weeds. The tiles had fallen from the dome one by one, scavenged for Muslim buildings or simply taken by time. The silver vessels had been sold to pay the jizya tax that non-Muslims owed to their conquerors. The pilgrims had become converts or corpses.
+
+Now only a handful of Zoroastrians remained in Isfahan. Old men who still tied the sacred cord around their waists each morning, their fingers fumbling with knots they'd tied for seventy years. Old women who whispered prayers to Ahura Mazda while grinding spices, hedging their bets between the old god and the new. Their children had converted or fled or simply disappeared into the great Muslim sea that surrounded them, taking Muslim names, marrying Muslim spouses, forgetting the fire that had sustained their ancestors for a thousand years.
+
+Shirin understood. She didn't judge them. What was faith against hunger? What were prayers against a child's future? The Muslims offered what the Zoroastrians could not: acceptance, opportunity, a place in the world as it actually existed rather than as it once had been.
+
+\scenebreak
+
+Shirin was twenty-three and unmarried, which made her a curiosity. She had been dedicated to the temple as a child, meant to remain virgin, meant to tend the flame and weave the sacred cloths that covered the altar. Her father, the temple keeper, had three daughters. The older two married and converted, choosing husbands over fire. Shirin remained.
+
+Not out of virtue, though her father believed so. Not even out of faith, though she loved the fire and the old prayers. She remained because the fire showed her things. And the loom showed her even more.
+
+In the women's alcove, hidden behind a cotton curtain bleached by years of smoke, stood the vertical loom where she wove. It was taller than she was, ancient as the temple itself, the wooden frame worn smooth by generations of hands. The warp threads hung like rain, white wool waiting to be transformed. Each morning after tending the fire, she took her place on the low stool—her mother's stool, and her grandmother's before that—and worked.
+
+The rhythm was meditative: shuttle through, beat the weft tight with the wooden comb, shuttle back. Her grandmother had taught her when she was five, her small hands guided by larger, surer ones. ``The loom is honest,'' her grandmother had said. ``It shows you what you really are, not what you pretend to be.''
+
+Officially, she wove altar cloths—simple geometric patterns in red and gold, symbols of flame and sun that had been repeated for centuries. The same diamonds and crosses and stepped designs that adorned every Zoroastrian temple from India to Persia. Safe patterns. Ancient patterns. Patterns that said nothing except: we were here, we believed this, we continue.
+
+But sometimes, when her mind quieted and her hands moved of their own accord, the patterns changed. She would enter a state she thought of as the ``white space''—a place where sound faded and time stretched and her body became merely an instrument for something else, something that wanted to speak through her fingers. She would work for hours in this trance, shuttle flying, comb beating, threads accumulating into cloth. And when she finally surfaced, blinking as if waking from sleep, she would look at what she'd made and find she had woven things she'd never seen: a cypress tree with roots that became rivers, a bird with two heads watching past and future simultaneously, water flowing upward from earth to sky.
+
+\scenebreak
+
+The first time it happened, she was fourteen. She'd been weaving an altar cloth, or thought she had been, when her grandmother touched her shoulder and she jerked out of the trance. Looking at the loom, she saw she'd woven an image that had nothing to do with sacred geometry: a woman's face, mouth open wide, whether in ecstasy or agony she couldn't tell. The face was her sister Parvin's.
+
+``What is this?'' her grandmother asked, but her voice wasn't angry—it was careful, the way one speaks near a sleeping snake.
+
+Shirin didn't know. She unraveled it immediately, her hands shaking, pulling out hours of work until the loom showed only blank warp again. Thread by thread, the face disappeared.
+
+A week later, Parvin died bringing a son into the world. She labored for two days, screaming in a way that made the midwife shake her head and reach for prayers instead of remedies. On the third day, she delivered a boy who lived, and died herself an hour later, blood soaking through the mattress and pooling on the floor.
+
+Shirin attended the funeral and said nothing about what she'd woven. But her grandmother knew. On the walk home from the tower of silence, the old woman had gripped Shirin's wrist and said, ``The gift runs in our family. My grandmother had it. Now you. The loom knows things. The fire knows things. We are merely instruments.''
+
+``I don't want this gift,'' Shirin had whispered.
+
+``None of us do. But the dead don't ask our permission before speaking through us.''
+
+\scenebreak
+
+After that, Shirin learned not to question what her hands produced. When she found herself weaving strange images, she simply continued, documenting what came. Sometimes the images meant nothing she could understand. Sometimes they were warnings of drought or visitors or deaths. She kept them to herself, these secret messages from whatever realm sent them. The loom knew things. The fire knew things. She was merely the vessel.
+
+This morning, as the fire settled into its daily burning, she returned to the loom. She was working on something that had been growing for months now—not an altar cloth but something larger, more complex. She couldn't say what compelled her to begin it, only that one morning her hands had refused to weave anything else. The pattern was unlike anything in the Zoroastrian tradition: not geometric but organic, flowing, full of hidden images that revealed themselves only if you looked sideways.
+
+She saw, emerging from the threads: a carpet. Not a small prayer rug but something vast. In its patterns, cities she didn't recognize. Faces of people not yet born. And something else—a sense of motion, of journey, of time folding in on itself like cloth.
+
+``You're doing it again.''
+
+Shirin's hands stilled. She hadn't heard him enter.
+
+Maktab stood in the temple doorway, silhouetted against the morning sun. He was tall and thin as a reed, dressed in the simple robes of a scribe, his hands stained with ink instead of soot. She had known him all her life—he was the son of the head priest, trained to follow his father into service. But Maktab had chosen differently. He'd learned to read and write, not just Avestan but Arabic and Persian too, and now he earned his bread copying documents for Muslim merchants.
+
+A traitor to the faith, some called him. A pragmatist, others said. Shirin thought he was simply sad.
+
+``Doing what?'' she asked, though she knew.
+
+``Weaving prophecies you don't understand.'' He stepped closer, his eyes on the loom. ``That's not an altar cloth.''
+
+``My hands know what they're doing.''
+
+``Do they? Or is it something else guiding them?''
+
+She should have bristled at his presumption, but Maktab had never spoken to her the way other men did—as if she were a holy relic or a pitiable spinster. He spoke to her as if she had a mind.
+
+``The fire speaks,'' she said. ``You used to believe that.''
+
+``I still do. But I've learned that fire speaks in many languages.'' He crouched beside her, studying the weaving. Up close, he smelled of rosewater and ink. ``May I?''
+
+She nodded, and he traced the pattern with one finger, not quite touching the threads. His eyes widened.
+
+``This is... I've seen this before. In an old text. A map, but not of places. Of time.''
+
+``I don't know what it is. I only know my hands won't stop.''
+
+He was quiet for a long moment, his finger hovering over a section where the pattern seemed to spiral inward endlessly. Finally, he said, ``The Jews have a story. About a prophet who could see the end of all things woven into a prayer shawl. Every thread was a life, every knot a decision, every color a different path the world might take.''
+
+``Why are you telling me this?''
+
+``Because I think you're weaving the same thing. And I think you should know: the prophet went mad trying to understand it.''
+
+\scenebreak
+
+Shirin looked at her work—months of labor, and barely a quarter complete. Her hands ached with the thought of unraveling it. But they ached more at the thought of stopping.
+
+``I can't stop,'' she said simply. ``It won't let me.''
+
+``Then don't.'' Maktab stood, brushing dust from his robes. ``But perhaps... perhaps you should learn what the patterns mean. So you don't go mad.''
+
+``And who would teach me? The old priests? They can barely remember the prayers, let alone read prophecies.''
+
+``No. Not the Zoroastrian priests.'' He hesitated, and she heard the weight of what he was about to say. ``The Jews. They remember. They know how to keep memory alive even when the world wants them to forget.''
+
+Shirin's hands stilled on the shuttle. ``You're speaking of conversion.''
+
+``I'm speaking of survival.''
+
+``It's not the same thing.''
+
+``Isn't it?'' His voice was soft, almost gentle. ``Shirin, look around. The fire is dying. Not this one—'' he gestured at the altar flame ``—but the great fire. Our people. Our faith. In another generation, there will be no one left to tend it.''
+
+``So we should just surrender? Become what conquered us?''
+
+``We should become what survives.'' He moved toward the door, then paused. ``The Jewish merchants come to the temple sometimes. They stand outside and pray toward Jerusalem. I've spoken with them. They say a man can carry his god anywhere—in his heart, in his prayers, in the stories he tells his children. They've been doing it for a thousand years.''
+
+``And you believe them?''
+
+``I believe we have to try something. Or we'll disappear like morning mist.''
+
+\scenebreak
+
+After he left, Shirin returned to the loom. But her hands were shaking, and the thread snarled. She tried three times to pass the shuttle and each time it caught, the weft bunching instead of lying smooth. Finally, she set it down and walked to the fire instead, needing its steadiness.
+
+The flames had died to coals, red and breathing. She fed them a handful of tamarisk and watched the wood catch, remembering what her father had taught her: fire is not one thing but a process, a transformation of matter into light and heat and ash. Nothing is destroyed, only changed. The atoms that made the wood now rose as smoke, drifting toward the sky, becoming part of everything.
+
+She held her hands over the flames, feeling the heat seep into her bones. In the dancing light, the shadows on the walls became figures: women weaving, men praying, children running. The history of her people, written in firelight and memory.
+
+And then, as sometimes happened, the fire showed her more.
+
+In the coals, images formed. She saw a woman with green eyes like her own—her own face, but older, stronger—standing in a city she didn't recognize. Stone buildings rose around her, taller than Isfahan's tallest palace. The woman held a child against her hip, and she was singing something, and the child laughed. Behind them, water stretched to the horizon, bluer than any water Shirin had ever seen. The Mediterranean, she thought, though she'd never seen the sea.
+
+The image shifted. Now she saw men in strange dress—European clothes, perhaps, or something she couldn't name—arguing over something. They stood in a shop filled with carpets. One of them held a carpet that Shirin recognized with a jolt: the one she was weaving, or one grown from it, completed and aged and beautiful. The man unrolled it and pointed to a pattern, speaking words she couldn't hear.
+
+The image shifted again. Now she saw the carpet hung in a window, sunlight streaming through it, the patterns alive with color. People walked past outside—women in veils and women without, men in turbans and men in hats. A city where all the world's people mixed together. Behind the carpet, she glimpsed blue water again. The sea. The shop was beside the sea.
+
+The vision faded, and she was alone again with the dying fire, her hands still stretched toward heat that no longer warmed her. The temple was cold. It was always cold, even in summer, as if the stones themselves knew they were dying.
+
+\scenebreak
+
+She fed the fire again, watching it surge and settle. The visions came when they wanted to, and left the same way. She had learned long ago that she couldn't summon them, couldn't control them, couldn't make them show her what she wanted to see—only what she needed to know.
+
+And what she needed to know, apparently, was this: the carpet would survive. It would travel beyond Isfahan, beyond Persia. It would rest beside a sea she'd never see, in a shop in a city she'd never visit, looked at by people who didn't know her name.
+
+The thought should have been sad. Instead, it felt like relief.
+
+That evening, her father collapsed while leading the sunset prayers. There were only five people present—Shirin, Maktab's father the priest, two elderly women, and a convert who came more out of nostalgia than faith. They carried her father to his room behind the temple, and Shirin sat beside him through the night, holding his hand while he drifted in and out of consciousness.
+
+Near dawn, he opened his eyes and seemed to see her clearly for the first time in hours.
+
+``I dreamed,'' he said, his voice a rasp, ``that you married and had many children. And that they worshipped in a different temple, speaking different prayers. But the fire...'' He smiled weakly. ``The fire lived in them still.''
+
+``Don't speak, Papa. Save your strength.''
+
+``For what? To tend a dying flame another year?'' He squeezed her hand with surprising strength. ``Shirin. My green-eyed girl. You've always seen further than the rest of us. What do you see now?''
+
+She wanted to lie, to tell him the faith would endure, that she would keep the temple alive, that everything would be as it had always been. But she had never lied to the fire, and she couldn't lie to her father either.
+
+``I see us changing,'' she whispered. ``Becoming something else. But not disappearing. Never disappearing.''
+
+He nodded as if he'd expected this. ``Then change. Change and live. That's all any god can ask of us.''
+
+He died an hour later, just as the sun rose and Shirin should have been feeding the morning fire. She didn't move from his side until Maktab's father came to prepare the body, and even then she felt as if part of her remained in that room, holding her father's cooling hand.
+
+\scenebreak
+
+The funeral was small. Six mourners total, which would have shamed her father had he been alive to count them. They wrapped his body in white cloth—not the elaborate ceremony that tradition demanded, with three days of prayers and ritual washing, but a simpler version because there were no longer enough priests to perform the full rites. Shirin's grandmother would have wept at the inadequacy. Her father, she thought, would have understood.
+
+They carried him on a wooden bier to the tower of silence outside the city, a round structure open to the sky where the dead were laid for the vultures and the sun to consume. It was the Zoroastrian way: earth and water were too sacred to be polluted by death, so the body was given to air and fire, to be returned to the elements in the purest form.
+
+The tower stood on a hill, its stones bleached white by centuries of sun. They climbed the path in silence, the six of them taking turns carrying the bier because there were no longer professional corpse-bearers to do this work. Maktab's father led the prayers, his voice cracking on the ancient Avestan words. The two elderly women wept. Maktab walked beside Shirin, close enough that she felt his presence but not touching, observing the careful distance mourning required.
+
+At the tower's entrance, the men carried her father inside—women were not permitted beyond this point—and laid him in one of the stone depressions on the open platform. Shirin stood at the door and watched the vultures circle overhead, dark shapes against the morning sky. They knew. They always knew.
+
+In Zoroastrian belief, the body was impure from the moment the soul departed. It became a temporary house for demons, for decay, for all that dragged the spirit down toward darkness. But the soul—the fravashi—rose up, up toward the light, toward the presence of Ahura Mazda, to be judged and welcomed or sent back to learn again.
+
+Standing in the desert wind, watching the vultures begin their descent, Shirin wondered if the old beliefs were true. She wondered if souls rose at all, or if they simply dispersed like smoke, particles mixing with air until there was no difference between the dead and the world they'd left behind. She wondered if anything was true except the brute fact of survival—that she was alive and her father was dead, and tomorrow she would wake and tend the fire because someone had to, because the alternative was letting it go out entirely.
+
+One of the vultures landed on the tower's edge. It cocked its head and looked at her with an eye that was neither cruel nor kind, simply hungry. She met its gaze and thought: You, at least, are honest. You take what the dead offer and ask for no prayers in return.
+
+``We should go,'' Maktab said quietly. ``There's nothing more to do here.''
+
+But Shirin stayed a moment longer, watching more vultures land, watching them hop toward the stone platform where her father lay. This was how her people had always died—returned to the sky, to the creatures that flew closest to heaven. If there was beauty in it, she couldn't see it today. Today it seemed only like erasure. The body consumed, the soul fled, the memory fading with each generation until no one remained who remembered her father's name or what he'd died believing.
+
+Unless she carried him forward somehow. Unless she wove him into something that would last.
+
+\scenebreak
+
+Afterward, Maktab walked with her back toward the city. The sun was setting, turning the desert to copper and gold. They didn't speak until they reached the edge of the city, where the fire temple's dome was just visible above the mud-brick houses.
+
+``I've been thinking,'' Maktab said, ``about what you said. That becoming what conquers us and surviving aren't the same thing.''
+
+``Yes?''
+
+``But perhaps...'' He paused, choosing his words carefully. ``Perhaps if we're clever, we can do both. Survive on the surface, but remain ourselves underneath. Like a seed in winter—it looks dead, but it's only waiting.''
+
+Shirin thought of the loom, of the pattern her hands were weaving without her conscious will. Of all the faces she'd seen in the fire. Of her father's final words.
+
+``What are you proposing?'' she asked, though she already knew.
+
+``Marriage. Conversion. A new life in the Jewish quarter. But we take something with us. We weave our truth into something that lasts, something that will outlive us and carry forward what we were, even if no one remembers our names.''
+
+``The carpet,'' she said.
+
+``The carpet.''
+
+She should have been shocked. Should have refused. Should have clung to the dying embers of her faith and let them burn out with her. But her hands already knew what they were making. Her hands had known for months.
+
+``I'll need thread,'' she said. ``Good thread. From the sacred robes, and from the Torah covers in the synagogue. And time. At least three years.''
+
+Maktab smiled—the first real smile she'd seen on his face in years. ``I'll get the thread. And I'll learn the prayers. Both sets. We'll weave them together.''
+
+``You don't even know if I'll marry you.''
+
+``You will. You've already seen it, haven't you? In the fire?''
+
+She had. She'd seen them sitting together in a courtyard she didn't recognize, hands dark with dye, weaving a pattern that would outlive empires. She'd seen their children, and their children's children, stretching forward into a future she couldn't name.
+
+``Yes,'' she said. ``I've seen it.''
+
+\scenebreak
+
+The fire temple stood behind them, its dome glowing orange in the setting sun. Tomorrow she would return and feed the flame, and the day after, and the day after that. But she knew—the way her hands knew when to shuttle the thread, the way the fire knew when to rise—that each feeding brought them closer to the last.
+
+Fire, once kindled, never truly dies. It only finds new forms.
+
+That night, alone in the temple, Shirin returned to the loom. Her hands moved in the darkness, muscle memory guiding them. She wove by feel, by instinct, by whatever force had been guiding her all along. And slowly, thread by thread, the carpet began to take shape.
+
+In its patterns: a fire temple and a synagogue, overlapping. A woman's hands, green-eyed and certain. A family tree that branched and split and tangled and reunited across centuries. Cities she'd never seen. Languages she didn't speak. And at the center, barely visible unless you knew how to look: a single flame, eternal and enduring, hidden in the warp and weft of transformation.
+
+She wove until dawn, and when she finally set down the shuttle, she saw that her hands were trembling. Not from fear. From recognition.
+
+This was what she had been made for. Not to tend a dying fire in a dying temple, but to carry it forward in a form that could survive anything. Even the end of her world.
+
+The fire whispered its approval, and Shirin, for the first time in years, smiled.
+
+% ============================================================
+% END OF CHAPTER 1
+% ============================================================
+
+\clearpage
+
+% ============================================================
+% ADDITIONAL CHAPTERS WOULD GO HERE
+% ============================================================
+
+% Future chapters can be included with:
+% \include{chapter_02}
+% \include{chapter_03}
+% etc.
+
+% ============================================================
+% BACK MATTER (Optional)
+% ============================================================
+
+\backmatter
+
+% Author's note, acknowledgments, etc. could go here
+
+\end{document}

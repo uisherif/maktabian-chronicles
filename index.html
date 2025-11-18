@@ -12,12 +12,14 @@
 
     <style>
         :root {
-            --saffron: #D4A574;
-            --crimson: #8B2635;
-            --parchment: #F5F1E8;
-            --charcoal: #2B2622;
-            --ink: #1a1614;
-            --fade: rgba(212, 165, 116, 0.15);
+            --deep-red: #1A0404;
+            --blood-red: #4A0E0E;
+            --persian-red: #8B2635;
+            --rose-gold: #E8B298;
+            --warm-gold: #D4A574;
+            --ivory: #FFF8F0;
+            --cream: #F5EDE3;
+            --shadow: rgba(26, 4, 4, 0.6);
         }
 
         * {
@@ -28,14 +30,31 @@
 
         body {
             font-family: 'IBM Plex Sans', sans-serif;
-            background: var(--parchment);
-            color: var(--charcoal);
+            background: var(--deep-red);
+            color: var(--cream);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Textile pattern background */
+        /* Layered atmospheric background */
         body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(139, 38, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(74, 14, 14, 0.2) 0%, transparent 50%),
+                linear-gradient(180deg, rgba(26, 4, 4, 0) 0%, rgba(74, 14, 14, 0.3) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Subtle Persian carpet texture */
+        body::after {
             content: '';
             position: fixed;
             top: 0;
@@ -44,21 +63,20 @@
             height: 100%;
             background-image:
                 repeating-linear-gradient(
-                    90deg,
+                    45deg,
                     transparent,
-                    transparent 2px,
-                    var(--fade) 2px,
-                    var(--fade) 4px
+                    transparent 80px,
+                    rgba(212, 165, 116, 0.02) 80px,
+                    rgba(212, 165, 116, 0.02) 82px
                 ),
                 repeating-linear-gradient(
-                    0deg,
+                    -45deg,
                     transparent,
-                    transparent 2px,
-                    var(--fade) 2px,
-                    var(--fade) 4px
+                    transparent 80px,
+                    rgba(139, 38, 53, 0.03) 80px,
+                    rgba(139, 38, 53, 0.03) 82px
                 );
-            background-size: 40px 40px;
-            opacity: 0.4;
+            opacity: 0.6;
             pointer-events: none;
             z-index: 0;
         }
@@ -87,27 +105,29 @@
         .ornament {
             width: 60px;
             height: 3px;
-            background: linear-gradient(90deg, transparent, var(--saffron), transparent);
+            background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
             margin: 0 auto 3rem;
             opacity: 0;
             animation: slideDown 0.8s ease-out 0.8s forwards;
+            box-shadow: 0 0 20px rgba(232, 178, 152, 0.4);
         }
 
         h1 {
             font-family: 'Crimson Pro', serif;
             font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 300;
-            color: var(--ink);
+            color: var(--ivory);
             letter-spacing: -0.02em;
             line-height: 1.1;
             margin-bottom: 1.5rem;
+            text-shadow: 0 2px 30px rgba(232, 178, 152, 0.3);
         }
 
         .subtitle {
             font-family: 'Crimson Pro', serif;
             font-size: clamp(1.1rem, 3vw, 1.5rem);
             font-weight: 400;
-            color: var(--crimson);
+            color: var(--rose-gold);
             font-style: italic;
             margin-bottom: 3rem;
             opacity: 0;
@@ -117,8 +137,8 @@
         .attribution {
             font-size: 0.95rem;
             font-weight: 300;
-            color: var(--charcoal);
-            opacity: 0.7;
+            color: var(--cream);
+            opacity: 0.65;
             margin-bottom: 4rem;
             opacity: 0;
             animation: fadeIn 0.8s ease-out 1.5s forwards;
@@ -149,14 +169,14 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: var(--crimson);
+            color: var(--rose-gold);
             font-weight: 400;
         }
 
         .scroll-line {
             width: 1px;
             height: 40px;
-            background: linear-gradient(to bottom, var(--saffron), transparent);
+            background: linear-gradient(to bottom, var(--warm-gold), transparent);
             position: relative;
             overflow: hidden;
         }
@@ -168,7 +188,7 @@
             left: 0;
             width: 100%;
             height: 20px;
-            background: var(--crimson);
+            background: var(--rose-gold);
             animation: scrollDrop 2s ease-in-out infinite;
         }
 
@@ -204,7 +224,7 @@
             line-height: 1.8;
             font-weight: 300;
             margin-bottom: 3rem;
-            color: var(--ink);
+            color: var(--cream);
         }
 
         .story-details {
@@ -214,11 +234,15 @@
         }
 
         .detail-item {
-            border-left: 2px solid var(--saffron);
+            border-left: 2px solid var(--warm-gold);
             padding-left: 1.5rem;
             opacity: 0;
             transform: translateX(-20px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            background: rgba(74, 14, 14, 0.3);
+            padding: 1.5rem;
+            padding-left: 2rem;
+            border-radius: 0 4px 4px 0;
         }
 
         .detail-item.visible {
@@ -234,7 +258,7 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--crimson);
+            color: var(--rose-gold);
             margin-bottom: 0.5rem;
             font-weight: 500;
         }
@@ -242,7 +266,7 @@
         .detail-content {
             font-family: 'Crimson Pro', serif;
             font-size: 1.25rem;
-            color: var(--ink);
+            color: var(--ivory);
             line-height: 1.6;
         }
 
@@ -264,7 +288,7 @@
             font-family: 'Crimson Pro', serif;
             font-size: clamp(1.3rem, 3vw, 1.75rem);
             margin-bottom: 3rem;
-            color: var(--ink);
+            color: var(--ivory);
             font-weight: 300;
         }
 
@@ -272,16 +296,18 @@
             max-width: 650px;
             margin: 0 auto 4rem;
             padding: 2rem 2.5rem;
-            border-left: 3px solid var(--saffron);
-            background: rgba(212, 165, 116, 0.08);
+            border-left: 3px solid var(--warm-gold);
+            background: rgba(74, 14, 14, 0.4);
             text-align: left;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 4px 20px var(--shadow);
         }
 
         .author-note-label {
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--crimson);
+            color: var(--rose-gold);
             margin-bottom: 1rem;
             font-weight: 500;
         }
@@ -289,42 +315,43 @@
         .author-quote {
             font-size: 1rem;
             line-height: 1.8;
-            color: var(--charcoal);
+            color: var(--cream);
             font-style: italic;
             margin-bottom: 1rem;
         }
 
         .author-attribution {
             font-size: 0.95rem;
-            color: var(--ink);
+            color: var(--ivory);
             font-style: normal;
         }
 
         .author-attribution a {
-            color: var(--crimson);
+            color: var(--warm-gold);
             text-decoration: none;
             border-bottom: 1px solid transparent;
             transition: border-color 0.3s ease;
         }
 
         .author-attribution a:hover {
-            border-bottom-color: var(--crimson);
+            border-bottom-color: var(--warm-gold);
         }
 
         .download-btn {
             display: inline-block;
             padding: 1.25rem 3rem;
-            background: var(--ink);
-            color: var(--parchment);
+            background: var(--warm-gold);
+            color: var(--deep-red);
             text-decoration: none;
             font-size: 1rem;
-            font-weight: 400;
+            font-weight: 500;
             letter-spacing: 0.05em;
             text-transform: uppercase;
-            border: 2px solid var(--ink);
-            transition: all 0.3s ease;
+            border: 2px solid var(--warm-gold);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 20px rgba(212, 165, 116, 0.3);
         }
 
         .download-btn::before {
@@ -334,14 +361,16 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--crimson);
+            background: var(--rose-gold);
             transition: left 0.4s ease;
             z-index: -1;
         }
 
         .download-btn:hover {
-            color: var(--parchment);
-            border-color: var(--crimson);
+            color: var(--deep-red);
+            border-color: var(--rose-gold);
+            box-shadow: 0 6px 30px rgba(232, 178, 152, 0.5);
+            transform: translateY(-2px);
         }
 
         .download-btn:hover::before {
@@ -351,8 +380,8 @@
         .file-info {
             margin-top: 1.5rem;
             font-size: 0.9rem;
-            color: var(--charcoal);
-            opacity: 0.6;
+            color: var(--cream);
+            opacity: 0.5;
         }
 
         /* Footer */
@@ -360,9 +389,9 @@
             padding: 3rem 0;
             text-align: center;
             font-size: 0.9rem;
-            color: var(--charcoal);
-            opacity: 0.5;
-            border-top: 1px solid rgba(43, 38, 34, 0.1);
+            color: var(--cream);
+            opacity: 0.4;
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
         }
 
         /* Animations */

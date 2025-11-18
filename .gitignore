@@ -21,3 +21,16 @@
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# LaTeX build files
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz
+build/temp/
+
+# Build artifacts
+build/latex-sample/*.aux
+build/latex-sample/*.log
+build/latex-sample/*.pdf
